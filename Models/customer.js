@@ -37,64 +37,39 @@ customerSchema.post("findOneAndDelete", async (custdata)=>{
 const order = mongoose.model("order",orderSchema);
 const customer = mongoose.model("customer",customerSchema);
 
-// const addCustomer = async() =>{
-//     let cust1 = new customer({
-//         name : "Abhinav Tomar"
-//     })
+const addorder = async() =>{
+    let res = await order.insertMany([
+        {item : "Samosa" , price:12},
+        {item: "chips" ,price:10},
+        {item : "chocolate", price:40},
+    ]);
+    console.log(res);
+};
 
-//     let order1 = await order.findOne({item:"Samosa",price:12})
-//     let order2 = await order.findOne({item:"chips",price:10})
-//     let order3 = await order.findOne({item:"chocolate",price:40})
+addorder();
 
-//     cust1.orders.push(order1);
-//     cust1.orders.push(order2);
-//     cust1.orders.push(order3);
-//     let res = await cust1.save();
-//     console.log(res);
-// }
-
-// addCustomer()
-
-const addCustomer2 = async() =>{
-    let cust2 = new customer({
-        name : "Pardeeep Narwal"
+const addCustomer = async() =>{
+    let cust1 = new customer({
+        name : "Abhinav Tomar"
     })
 
-    let order2 = new order({
-        item : "Pizza",
-        price : 300
-    })
+    let order1 = await order.findOne({item:"Samosa",price:12})
+    let order2 = await order.findOne({item:"chips",price:10})
+    let order3 = await order.findOne({item:"chocolate",price:40})
 
-    cust2.orders.push(order2);
-    await order2.save();
-    await cust2.save();
-    console.log("Added Successfully");
+    cust1.orders.push(order1);
+    cust1.orders.push(order2);
+    cust1.orders.push(order3);
+    let res = await cust1.save();
+    console.log(res);
 }
 
-addCustomer2();
+addCustomer()
 
 const delCust = async() =>{
-    let data = await customer.findByIdAndDelete("6ae60d062f4c75711ee548de");
+    let data = await customer.findByIdAndDelete("6ae703ba05c11c57293215a7");
     console.log("Data deleted Successfully");
 }
 
 delCust();
 
-// //Using populate method.
-// const findCustomer = async() =>{
-//     let res = await customer.find({}).populate("orders")
-//     console.log(res[0]);
-// }
-
-// findCustomer();
-
-// const addorder = async() =>{
-//     let res = await order.insertMany([
-//         {item : "Samosa" , price:12},
-//         {item: "chips" ,price:10},
-//         {item : "chocolate", price:40},
-//     ]);
-//     console.log(res);
-// };
-
-// addorder();
